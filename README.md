@@ -121,8 +121,6 @@ src/
 
 =======
 
-> > > > > > > 3afe6a569a85cd122cb031c299e4293b931abaaa
-
 ---
 
 ## Setup & Requirements
