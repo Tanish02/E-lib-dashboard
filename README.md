@@ -116,11 +116,12 @@ src/
 ├── store/ # Zustand state management
 ├── schemas/ # Zod validation schemas
 └── utils/ # Utility functions
-<<<<<<< HEAD
+
 ```
+
 =======
 
->>>>>>> 3afe6a569a85cd122cb031c299e4293b931abaaa
+> > > > > > > 3afe6a569a85cd122cb031c299e4293b931abaaa
 
 ---
 
