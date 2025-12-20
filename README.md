@@ -1,4 +1,4 @@
-# E-lib Frontend
+# E-lib DashBoard
 
 A Next.js-based frontend application for a digital library service that displays books and enables downloads with integrated cache management.
 
