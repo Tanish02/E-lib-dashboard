@@ -1,168 +1,165 @@
-# E-lib DashBoard
+# E-Lib Dashboard
 
-A Next.js-based frontend application for a digital library service that displays books and enables downloads with integrated cache management.
+## Overview
 
-## Technologies & Libraries
+E-Lib Dashboard is the authenticated management interface of the E-Lib digital library system.
+It allows registered users to manage their own books while relying on the Backend API for authentication, authorization, and data integrity.
 
-**Language & Runtime**
+The dashboard is **not a standalone application**. It operates as part of the E-Lib system alongside:
 
-- TypeScript 5
-- Node.js (via Next.js)
-- JavaScript (ES2017+)
+- the Backend API (central authority),
+- and the public Frontend (read-only access).
 
-**Framework & Libraries**
+All write operations are validated by the backend, including ownership checks.
 
-- Next.js 15.3.1
-- React 19
-- React DOM 19
+---
 
-**Styling & UI**
+## System Context
 
-- Tailwind CSS 4.1.5
-- CSS (globals.css)
+E-Lib is composed of three coordinated components:
 
-**Tooling & Development**
+1. **Backend API**
 
-- ESLint 9 with Next.js config
-- PostCSS 4
-- Turbopack (Next.js bundler)
+   - Handles authentication and authorization
+   - Stores users and books
+   - Enforces ownership rules
+   - Manages file uploads and cloud storage
 
-## Project Overview
+2. **Public Frontend**
 
-E-lib Frontend is a Next.js application that serves as the user interface for a digital library. It fetches book data from a backend API, displays books in a searchable list, and provides individual book detail pages with download functionality. The application includes a custom cache management system that automatically detects data changes and clears stale cache entries to ensure fresh data is served to users.
+   - Read-only interface for browsing and downloading books
+   - No authentication required
+
+3. **Dashboard (this repository)**
+   - Authenticated interface for managing books
+   - Allows users to create, update, and delete only their own books
+   - Communicates exclusively with the Backend API
+
+---
+
+## Purpose of the Dashboard
+
+The dashboard exists to separate **public access** from **privileged operations**.
+
+- Unauthenticated users can only view books via the public frontend
+- Authenticated users can manage their own content via the dashboard
+- Authorization decisions are enforced server-side by the backend
+
+This separation reflects real-world application design.
+
+---
+
+## Tech Stack
+
+### Core
+
+- React
+- Vite
+- TypeScript
+
+### State & Data Management
+
+- Zustand for global client state
+- TanStack React Query for server state and caching
+- Axios for HTTP requests
+
+### Forms & Validation
+
+- React Hook Form
+- Zod for schema-based validation
+
+### Styling
+
+- Tailwind CSS
+
+---
+
+## Authentication & Authorization Flow
+
+1. User logs in via the Backend API
+2. Backend returns a JWT
+3. JWT is stored client-side
+4. Protected dashboard routes require authentication
+5. All create, update, and delete requests include the JWT
+6. Backend verifies:
+   - Token validity
+   - Resource ownership (`book.userId`)
+
+The dashboard does not rely on UI-level restrictions alone.
+The backend is the final authority for all permissions.
+
+---
+
+## Features
+
+- User authentication (login and registration)
+- Protected routes for authenticated users
+- Create new books with metadata and files
+- Update books owned by the authenticated user
+- Delete books owned by the authenticated user
+- Book listing with management actions
+- Dashboard overview with basic statistics
+- Client-side form validation
+- Optimistic UI updates using React Query
+
+---
 
 ## Repository Structure
 
-```
 src/
-	app/
-		(home)/              # Home page with book listing
-			page.tsx
-			components/
-				Banner.tsx       # Homepage banner
-				BookList.tsx     # Fetches and displays books
-				BookCard.tsx     # Individual book card display
-		api/
-			cache/
-				route.ts         # Cache statistics and management API
-			webhook/
-				cache-invalidate/
-					route.ts       # Webhook endpoint for cache invalidation
-		book/
-			[bookId]/          # Dynamic book detail page
-				page.tsx
-				components/
-					DownloadButton.tsx  # Book download functionality
-		layout.tsx           # Root layout with Navbar and Footer
-		globals.css          # Global styles
-	components/            # Shared components
-		CacheControl.tsx     # Manual cache control UI
-		Footer.tsx
-		Loading.tsx          # Loading state component
-		Navbar.tsx
-	hooks/
-		useCacheManager.ts   # React hook for cache management operations
-	utils/
-		cacheManager.ts      # Cache management utility class
-	types/
-		index.tsx            # TypeScript type definitions (Book, Author)
+├── pages/ # Dashboard routes
+├── components/ # Reusable UI components
+├── hooks/ # Custom React hooks
+├── services/ # API communication layer
+├── store/ # Zustand state management
+├── schemas/ # Zod validation schemas
+└── utils/ # Utility functions
 
-Configuration Files
-	next.config.ts        # Next.js configuration with cache headers and image domains
-	tailwind.config.js    # Tailwind CSS configuration
-	tsconfig.json         # TypeScript compiler configuration
-	eslint.config.mjs     # ESLint configuration
-	postcss.config.mjs    # PostCSS configuration
-	package.json          # Dependencies and scripts
-```
-
-## Features / Implementations
-
-- **Book Listing**: Displays books fetched from a backend API with cover images and metadata
-- **Book Detail Pages**: Dynamic routes showing full book information with author details
-- **Download Functionality**: Download button component for book files with error handling
-- **Cache Management System**: Automatic cache clearing with timestamp-based detection and fresh data fetching
-- **Cache Statistics API**: GET endpoint (`/api/cache`) to retrieve current cache state including cache keys and fetch timestamps
-- **Cache Invalidation Webhook**: POST endpoint (`/api/webhook/cache-invalidate`) for external cache invalidation with API key validation
-- **Manual Cache Control UI**: Visual component for cache clearing and monitoring
-- **React Hooks Integration**: `useCacheManager` hook for client-side cache operations and statistics
-- **Server-side Data Fetching**: Uses Next.js server components for optimized data loading
-- **Loading States**: Suspense-based loading fallback with loading component
-- **Responsive Layout**: Grid-based responsive design using Tailwind CSS
-- **Cache-Control Headers**: HTTP headers configured to prevent caching of API responses and dynamic content
+---
 
 ## Setup & Requirements
 
-**Prerequisites**
+### Prerequisites
 
-- Node.js (version compatible with Next.js 15.3.1)
-- npm or package manager
+- Node.js
+- Running E-Lib Backend API
 
-**Installation**
+### Installation
 
-1. Clone the repository
-2. Install dependencies:
-   ```
-   npm install
-   ```
+```bash
+npm install
+Create a .env.local file:
 
-**Environment Variables**
-Create a `.env` file with:
-`	 BACKEND_URL=<backend API URL>
-	 CACHE_WEBHOOK_API_KEY=<optional API key for webhook validation>
-	`
+env
 
-## Usage
+VITE_BACKEND_URL=http://localhost:5513
+Running the Dashboard
+bash
 
-**Development Server**
-
-```
 npm run dev
+The application will be available at:
+
+arduino
+
+http://localhost:5173
+Important Notes
+Users can modify or delete only the books they created
+
+Ownership enforcement is handled by the backend
+
+UI restrictions exist for usability, not security
+
+The dashboard is intended for authenticated use only
+
+Limitations
+No automated test coverage
+
+No role-based access control (admin roles not implemented)
+
+No audit logging
+
+No offline support
+
+License
+No license is specified in this repository.
 ```
-
-Runs the development server on [http://localhost:3000](http://localhost:3000) using Turbopack.
-
-**Production Build**
-
-```
-npm run build
-npm start
-```
-
-**Linting**
-
-```
-npm run lint
-```
-
-**Accessing Features**
-
-- Homepage: [http://localhost:3000](http://localhost:3000) displays the book list
-- Book Details: [http://localhost:3000/book/[bookId]](http://localhost:3000/book/[bookId]) where `[bookId]` is a valid book ID
-- Cache API: `GET /api/cache` returns cache statistics
-- Cache Invalidation: `POST /api/webhook/cache-invalidate` with JSON body containing `action`, `resource`, `resourceId`, `timestamp`, and `apiKey`
-
-## Scope & Intent
-
-This repository is a frontend application for demonstration and active use. It is designed to integrate with a backend API and serve as a functional digital library interface.
-
-## Limitations
-
-- Backend URL must be configured via `CACHE_WEBHOOK_API_KEY` environment variable; no fallback or validation for missing configuration
-- API key validation for webhook endpoint is optional and simple; not suitable for production security without enhancement
-- No input validation on cache invalidation webhook payload
-- Cache invalidation logic depends on backend API availability; no offline fallback
-- Missing automated test coverage
-- Book data structure is tightly coupled to backend API response format (assumes specific field names and structure)
-- Cover images are hardcoded to Cloudinary; no flexibility for alternative image sources
-- No error boundary or comprehensive error handling for failed book fetches beyond console logging
-- Cache management timestamps use client-side clock; no synchronization with server time
-- No pagination implemented for book listing; assumes backend returns all books at once
-
-## Contributing
-
-To contribute, submit a pull request with a clear description of changes. Ensure code follows the existing style conventions and passes linting checks.
-
-## License
-
-No license specified in this repository.
