@@ -116,8 +116,6 @@ src/
 ├── schemas/ # Zod validation schemas
 └── utils/ # Utility functions
 
-yaml
-Copy code
 
 ---
 
@@ -135,16 +133,11 @@ npm install
 Create a .env.local file:
 
 env
-Copy code
 VITE_BACKEND_URL=http://localhost:5513
 Running the Dashboard
-bash
-Copy code
+
 npm run dev
 The application will be available at:
-
-arduino
-Copy code
 http://localhost:5173
 ```
 
