@@ -142,6 +142,8 @@ The application will be available at:
 arduino
 
 http://localhost:5173
+```
+
 Important Notes
 Users can modify or delete only the books they created
 
