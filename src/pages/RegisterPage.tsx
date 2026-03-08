@@ -11,8 +11,8 @@ import { register } from "@/http/api";
 import useTokenStore from "@/store";
 import { Label } from "@radix-ui/react-label";
 import { useMutation } from "@tanstack/react-query";
-import { AxiosResponse } from "axios";
-import { LoaderPinwheel, Github } from "lucide-react";
+
+import { Github, LoaderPinwheel } from "lucide-react";
 import { useRef } from "react";
 import { Link, useNavigate } from "react-router";
 
@@ -30,14 +30,14 @@ const RegisterPage = () => {
   }
 
   const mutation = useMutation<
-    AxiosResponse<AuthResponse>,
+    AuthResponse,
     Error,
     { name: string; email: string; password: string }
   >({
     mutationFn: register,
-    onSuccess: (response) => {
+    onSuccess: (data) => {
       console.log("Registration success");
-      setToken(response.data.accessToken);
+      setToken(data.accessToken);
       navigate("/dashboard/home");
     },
     onError: (error) => {

@@ -1,8 +1,8 @@
+import { Button } from "@/components/ui/button";
+import { getBooks, getUsers } from "@/http/api";
+import { CirclePlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getBooks, getUsers } from "@/http/api";
-import { Button } from "@/components/ui/button";
-import { CirclePlus } from "lucide-react";
 
 const HomePage = () => {
   const [totalBooks, setTotalBooks] = useState<number>(0);
@@ -24,11 +24,11 @@ const HomePage = () => {
           setTotalUsers(userData.length);
         } catch {
           /////////////  total users numbers endpoint doesn't exist mock data  ❌
-          setTotalUsers("12345");
+          setTotalUsers(12345);
         }
       } catch {
         setTotalBooks(156);
-        setTotalUsers("12345");
+        setTotalUsers(12345);
       } finally {
         setLoading(false);
       }
