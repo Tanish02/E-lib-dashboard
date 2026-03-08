@@ -31,11 +31,11 @@ import {
   ShoppingCart,
   Users,
 } from "lucide-react";
-import { Link, Navigate, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, Navigate, NavLink, Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   const { token, logout } = useTokenStore((state) => state);
-  const navigate = useNavigate;
+  // const navigate = useNavigate;
   //
   if (token === "") {
     return <Navigate to={"/auth/login"} replace />;
@@ -67,7 +67,7 @@ const DashboardLayout = () => {
               <NavLink
                 to="/dashboard/home"
                 className={({ isActive }) => {
-                  return `flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary 
+                  return `flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary
                   ${isActive && "bg-muted"}`;
                 }}
               >
@@ -78,7 +78,7 @@ const DashboardLayout = () => {
               <NavLink
                 to="/dashboard/books"
                 className={({ isActive }) => {
-                  return `flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary 
+                  return `flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary
                   ${isActive && "bg-muted"}`;
                 }}
               >
