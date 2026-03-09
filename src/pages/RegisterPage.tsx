@@ -14,7 +14,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import { Github, LoaderPinwheel } from "lucide-react";
 import { useRef } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 
 /////
 const RegisterPage = () => {
