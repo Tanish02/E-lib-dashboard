@@ -3,8 +3,7 @@ import axios from "axios";
 import type { Book } from "../../types";
 
 const api = axios.create({
-  // move this to a .env file (todo)
-  baseURL: "http://localhost:5513/api",
+  baseURL: import.meta.env.VITE_BACKEND_URL,
   headers: {
     "Content-Type": "application/json",
   },
