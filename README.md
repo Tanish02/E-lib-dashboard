@@ -1,5 +1,7 @@
 # E-Lib Dashboard
 
+## 🔗 Live Demo: https://e-lib-dashboard-rose.vercel.app/auth/login
+
 ## Overview
 
 E-Lib Dashboard is the authenticated management interface of the E-Lib digital library system.
@@ -11,6 +13,30 @@ The dashboard is **not a standalone application**. It operates as part of the E-
 - the public Frontend (read-only access)
 
 All create, update, and delete operations are validated by the backend, including ownership checks.
+
+---
+
+## 📸 Screenshots
+
+### Login
+
+![Login](screenshots/login.png)
+
+### Sign Up
+
+![Signup](screenshots/Signup.png)
+
+### Dashboard
+
+![Dashboard](screenshots/afterlogin.png)
+
+### Books Management
+
+![Books](screenshots/dashboard-Books-section.png)
+
+### Create Book
+
+![Create Book](screenshots/add-book-section.png)
 
 ---
 
