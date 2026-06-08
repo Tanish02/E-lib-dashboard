@@ -1,2 +1,2 @@
-BACKEND_URL:,
-VITE_FRONTEND_URL=
+VITE_BACKEND_URL=https://e-lib-backhend.onrender.com/api
+VITE_FRONTEND_URL=https://e-lib-frontend-puce.vercel.app
